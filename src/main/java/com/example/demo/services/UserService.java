@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,20 @@ public class UserService {
 		 repo.deleteById(id);
 	 }
 	 
-	 public User fromDto (UserDto objDto) {
+	 public User update (User obj) {
+		 Optional<User> newObj = repo.findById(obj.getId());
+		 updateData (newObj, obj);
+		return  repo.save(newObj.get());
+	 }
+	 
+	 
+	 
+	 private void updateData(Optional<User> newObj, User obj) {
+		 newObj.get().setEmail(obj.getEmail());
+		 newObj.get().setName(obj.getName());
+	}
+
+	public User fromDto (UserDto objDto) {
 		 return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	 }
 	
