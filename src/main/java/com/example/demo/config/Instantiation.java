@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.example.demo.domain.Post;
 import com.example.demo.domain.User;
 import com.example.demo.dto.AuthorDto;
+import com.example.demo.dto.CommentsDto;
 import com.example.demo.repositories.PostRepository;
 import com.example.demo.repositories.UserRepository;
 
@@ -40,6 +41,7 @@ public class Instantiation implements CommandLineRunner {
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
 		User bob = new User(null, "Bob Grey", "bob@gmail.com");
 		
+	
 		
 		Post post1 = new Post(null, sdft.parse("21/03/2018"), "Partiu viajem", "vou para SP", new AuthorDto (maria));
 		Post post2 = new Post(null, sdft.parse("23/03/2018"), "Bom dia","Acordei feliz hoje",  new AuthorDto(maria));
@@ -51,6 +53,16 @@ public class Instantiation implements CommandLineRunner {
 		
 		 maria.getPosts().addAll(Arrays.asList(post1, post2));
 		 userRepository.save(maria);
+		 
+		 //Comentarios
+		 
+		 CommentsDto comments1 = new CommentsDto("Boa viajem mano!", sdft.parse("21/03/2018"), new AuthorDto(alex));
+		 CommentsDto comments2 = new CommentsDto("Aproveite!", sdft.parse("22/03/2018"), new AuthorDto(bob));
+		 CommentsDto comments3 = new CommentsDto("Tenha um ótimo dia!", sdft.parse("23/03/2018"), new AuthorDto(alex));
+		     
+		 post1.getComments().addAll(Arrays.asList(comments1, comments2));
+		 post2.getComments().addAll(Arrays.asList(comments3));
+		 postRepository.saveAll(Arrays.asList(post1, post2));
 		
 	}
 

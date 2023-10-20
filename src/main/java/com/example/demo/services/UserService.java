@@ -19,6 +19,10 @@ public class UserService {
 	public List <User> findAll () {
 		return repo.findAll();
 	}
+	
+	public Optional<User> findById (User obj) {
+		return repo.findById(obj.getId());
+	}
  
 	 public User insert (User obj) {
 		 return repo.insert(obj);
@@ -45,6 +49,8 @@ public class UserService {
 	public User fromDto (UserDto objDto) {
 		 return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
 	 }
+
+ 
 	
 	 
 	 	
